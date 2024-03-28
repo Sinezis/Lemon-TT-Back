@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -36,6 +38,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $lastName = null;
+
+    #[ORM\OneToMany(targetEntity: Event::class, mappedBy: 'createdBy', orphanRemoval: true)]
+    private Collection $events;
+
+    #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'attendees')]
+    private Collection $attending;
+
+    public function __construct()
+    {
+        $this->events = new ArrayCollection();
+        $this->attending = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -132,6 +146,63 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastName(string $lastName): static
     {
         $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): static
+    {
+        if (!$this->events->contains($event)) {
+            $this->events->add($event);
+            $event->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): static
+    {
+        if ($this->events->removeElement($event)) {
+            // set the owning side to null (unless already changed)
+            if ($event->getCreatedBy() === $this) {
+                $event->setCreatedBy(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getAttending(): Collection
+    {
+        return $this->attending;
+    }
+
+    public function addAttending(Event $attending): static
+    {
+        if (!$this->attending->contains($attending)) {
+            $this->attending->add($attending);
+            $attending->addAttendee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttending(Event $attending): static
+    {
+        if ($this->attending->removeElement($attending)) {
+            $attending->removeAttendee($this);
+        }
 
         return $this;
     }
