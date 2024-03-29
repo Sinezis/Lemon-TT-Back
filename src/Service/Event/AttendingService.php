@@ -29,7 +29,10 @@ class AttendingService {
         return;
     }
 
-    private function addToGuests()
+    private function addToGuests(
+        Event $event,
+        User $user
+    )
     {
         //Bidirectionnal relation => i add to both event and user
         $event->addAttendee($user);
@@ -41,7 +44,10 @@ class AttendingService {
         $this->entityManager->flush();
     }
 
-    private function removeFromGuests()
+    private function removeFromGuests(
+        Event $event,
+        User $user
+    )
     {
         //Bidirectionnal relation => i remove from both event and user
         $event->removeAttendee($user);
