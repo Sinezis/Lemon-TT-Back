@@ -70,4 +70,16 @@ class EventController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    #[Route(path: '/delete/{id}', name: 'delete')]
+    public function delete(
+        Request $request,
+        Event $event,
+    ): Response
+    {
+
+        $this->eventManager->delete($event);
+
+        return $this->redirectToRoute('app_home');
+    }
 }
