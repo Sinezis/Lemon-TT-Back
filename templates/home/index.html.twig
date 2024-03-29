@@ -5,4 +5,9 @@
 
 {% block body %}
 	<h1>Accueil</h1>
+	{% for event in events %}
+		<p>
+			{{ event.title }}
+		</p>
+	{% endfor %}
 {% endblock %}
