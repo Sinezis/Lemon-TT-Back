@@ -7,7 +7,7 @@ use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormInterface;
 
-class EventCreationService {
+class EventService {
     private $entityManager;
 
     public function __construct(
@@ -25,6 +25,23 @@ class EventCreationService {
 
         $event->setCreatedAt(new \DateTimeImmutable());
         $event->setCreatedBy($user);
+
+        try {
+            $this->entityManager->persist($event);
+            $this->entityManager->flush();
+        } catch (Exception $e) {
+            throw new Exception("L'événement n'a pas pu être sauvegardé. Veuillez réessayer.");
+        }
+
+        return true;
+    }
+
+    public function update(
+        FormInterface $form,
+        User $user,
+        Event $event
+    ) {
+        $event = $form->getData();
 
         try {
             $this->entityManager->persist($event);

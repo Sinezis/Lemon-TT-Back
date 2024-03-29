@@ -20,7 +20,7 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
     
-    App\Service\EventCreationService:
+    App\Service\EventService:
         autowire: true
 
     # add more service definitions when explicit configuration is needed

@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Form\EventFormType;
 use App\Repository\EventRepository;
-use App\Service\EventCreationService;
+use App\Service\EventService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -16,21 +16,20 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route(path: '/event', name: 'event_')]
 class EventController extends AbstractController
 {
-    private $eventCreator;
+    private $eventManager;
     private $security;
 
     public function __construct(
-        EventCreationService $creator,
+        EventService $manager,
         Security $security
     ) {
-        $this->eventCreator = $creator;
+        $this->eventManager = $manager;
         $this->security = $security;
     }
 
     #[Route(path: '/new', name: 'new')]
     public function new(
         Request $request,
-        EntityManagerInterface $entityManager,
     ): Response
     {
         if (!($this->security->isGranted('ROLE_USER'))) {
@@ -42,12 +41,32 @@ class EventController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->eventCreator->create($form, $this->security->getUser());
+            $this->eventManager->create($form, $this->security->getUser());
 
             return $this->redirectToRoute('app_home');
         }
         
         return $this->render('event/create.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+    #[Route(path: '/update/{id}', name: 'update')]
+    public function update(
+        Request $request,
+        Event $event,
+    ): Response
+    {
+        $form = $this->createForm(EventFormType::class, $event);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->eventManager->update($form, $this->security->getUser(), $event);
+
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->render('event/update.html.twig', [
             'form' => $form,
         ]);
     }
