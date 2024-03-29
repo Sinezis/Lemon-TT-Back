@@ -57,6 +57,10 @@ class EventController extends AbstractController
         Event $event,
     ): Response
     {
+        if ($event->getCreatedBy() != $this->security->getUser()) {
+            return $this->redirectToRoute('app_home');
+        }
+
         $form = $this->createForm(EventFormType::class, $event);
 
         $form->handleRequest($request);
@@ -77,7 +81,10 @@ class EventController extends AbstractController
         Event $event,
     ): Response
     {
-
+        if ($event->getCreatedBy() != $this->security->getUser()) {
+            return $this->redirectToRoute('app_home');
+        }
+        
         $this->eventManager->delete($event);
 
         return $this->redirectToRoute('app_home');
