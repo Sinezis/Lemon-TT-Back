@@ -4,61 +4,67 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Mes événements</h1>
+	<div class="text-center mt-4">
+		<h1 style="font-weight: bold; color: #fd9c0d;">Mes événements</h1>
+	</div>
 	<div class="container mt-4">
-      <div class="row row-cols-1 row-cols-md-3 mx-auto">
-        {% for event in eventsAttending %}
-          <div class="col mb-4">
-            <div class="card border-secondary mb-3 offer-cards">
-              <div class="card-header offer-header">{{ event.title }}</div>
+		<div class="row row-cols-1 row-cols-md-3 mx-auto">
+		{% for event in eventsAttending %}
+			<div class="col mb-4">
+				<div class="card border-secondary mb-3 offer-cards">
+					<div class="card-header offer-header">{{ event.title }}</div>
 
-              <div class="card-body text-secondary">
-                <p class="card-text offer-card-text">
-				  à
-                  {{ event.location }}
-                </p>
-                <p class="card-text offer-card-text">
-				  du
-                  {{ event.startDate|date('d/m/Y H:i') }}
-                  au
-                  {{ event.endDate|date('d/m/Y H:i') }}
-                </p>
-              </div>
-			<a href="{{ path('attending_no', {id:event.id}) }}">
-				<button class="btn btn-lg btn-danger justify-content-center" style="margin-top:2rem">Se désinscrire</button>
-			</a>
-            </div>
-          </div>
-        {% endfor %}
-      </div>
-    </div>
+					<div class="card-body text-secondary">
+						<p class="card-text offer-card-text">
+						à
+						{{ event.location }}
+						</p>
+						<p class="card-text offer-card-text">
+						du
+						{{ event.startDate|date('d/m/Y H:i') }}
+						au
+						{{ event.endDate|date('d/m/Y H:i') }}
+						</p>
+					</div>
+				<a href="{{ path('attending_no', {id:event.id}) }}">
+					<button class="btn btn-lg btn-danger justify-content-center w-100 p-3" style="margin-top:2rem">Se désinscrire</button>
+				</a>
+				</div>
+			</div>
+		{% endfor %}
+		</div>
+	</div>
 
-	<h1>Mes événements créés</h1>
+	<div class="text-center mt-1">
+		<h1 style="font-weight: bold; color: #fd9c0d;">Mes événements créés</h1>
+	</div>
 	<div class="container mt-4">
-      <div class="row row-cols-1 row-cols-md-3 mx-auto">
-        {% for event in eventsCreated %}
-          <div class="col mb-4">
-            <div class="card border-secondary mb-3 offer-cards">
-              <div class="card-header offer-header">{{ event.title }}</div>
+		<div class="row row-cols-1 row-cols-md-3 mx-auto">
+		{% for event in eventsCreated %}
+			<div class="col mb-4">
+				<div class="card border-secondary mb-3 offer-cards">
+				<div class="card-header offer-header">{{ event.title }}</div>
 
-              <div class="card-body text-secondary">
-                <p class="card-text offer-card-text">
-                  <i class="bi bi-file-person-fill"></i>
-				  à
-                  {{ event.location }}
-                </p>
-                <p class="card-text offer-card-text">
-                  <i class="bi bi-currency-exchange"></i>
-				  du
-                  {{ event.startDate|date('d/m/Y H:i') }}
-                  au
-                  {{ event.endDate|date('d/m/Y H:i') }}
-                </p>
-              </div>
-
-            </div>
-          </div>
-        {% endfor %}
-      </div>
-    </div>
+				<div class="card-body text-secondary">
+					<p class="card-text offer-card-text">
+						<i class="bi bi-file-person-fill"></i>
+						à
+						{{ event.location }}
+					</p>
+					<p class="card-text offer-card-text">
+						<i class="bi bi-currency-exchange"></i>
+						du
+						{{ event.startDate|date('d/m/Y H:i') }}
+						au
+						{{ event.endDate|date('d/m/Y H:i') }}
+					</p>
+				</div>
+				<a href="{{ path('event_update', {id:event.id}) }}">
+					<button class="btn btn-lg btn-secondary justify-content-center w-100 p-3" style="margin-top:2rem">Mettre à jour</button>
+				</a>
+				</div>
+			</div>
+		{% endfor %}
+		</div>
+	</div>
 {% endblock %}

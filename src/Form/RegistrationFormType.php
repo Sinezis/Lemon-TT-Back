@@ -19,7 +19,11 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
+            ->add('email', TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Adresse email'
+                ]
+            ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -48,9 +52,20 @@ class RegistrationFormType extends AbstractType
                         'message' => "Votre mot de passe doit contenir au moins un caractère spécial, un chiffre et une majuscule"
                     ])
                 ],
+                'attr' => [
+                    'placeholder' => 'Mot de passe'
+                ]
             ])
-            ->add("firstName", TextType::class)
-            ->add("lastName", TextType::class)
+            ->add("firstName", TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Prénom'
+                ]
+            ])
+            ->add("lastName", TextType::class, [
+                'attr' => [
+                    'placeholder' => 'Nom'
+                ]
+            ])
         ;
     }
 

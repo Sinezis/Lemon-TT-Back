@@ -1,37 +1,37 @@
-<nav class="navbar navbar-expand-lg ">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">DREF</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-                <ul class=" midnav navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_home') }}">Page d'accueil</a>
-                    </li>
-                    <li class="nav-item">
-                        {% if is_granted('ROLE_USER') %}
-                            <a class="nav-link" href="{{ path('my_list') }}">Mes événements</a>
-                        {% else %}
-                            <a class="nav-link" disabled href="#">Mes événements</a>
-                        {% endif %}
-                    </li>
-                    <li class="nav-item">
-                        {% if is_granted('ROLE_USER') %}
-                            <a class="nav-link" href="{{ path('event_new') }}">Créer un événement</a>
-                        {% else %}
-                            <a class="nav-link" disabled href="#">Créer un événement</a>
-                        {% endif %}
-                    </li>
-                </ul>
-				{% if is_granted('ROLE_USER') %}
-					<a href="{{ path('app_logout') }}" class="nav-link">Déconnexion</a>
-				{% else %}
-					<a href="{{ path('app_login') }}" class="nav-link">Connexion</a>
-					<a href="{{ path('app_register') }}" class="nav-link">Inscription</a>
-				{% endif %}
-            </div>
+<nav class="navbar navbar-expand-lg bg-primary text-white">
+    <div class="container-fluid">
+        <a class="navbar-brand text-white" href="#">DREF</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+            <ul class=" midnav navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ path('app_home') }}">Page d'accueil</a>
+                </li>
+                <li class="nav-item">
+                    {% if is_granted('ROLE_USER') %}
+                        <a class="nav-link text-white" href="{{ path('my_list') }}">Mes événements</a>
+                    {% else %}
+                        <a class="nav-link text-white" disabled href="#">Mes événements</a>
+                    {% endif %}
+                </li>
+                <li class="nav-item">
+                    {% if is_granted('ROLE_USER') %}
+                        <a class="nav-link text-white" href="{{ path('event_new') }}">Créer un événement</a>
+                    {% else %}
+                        <a class="nav-link text-white" disabled href="#">Créer un événement</a>
+                    {% endif %}
+                </li>
+            </ul>
+            {% if is_granted('ROLE_USER') %}
+                <div class="col-1"><a href="{{ path('app_logout') }}" class="nav-link">Déconnexion</a></div>
+            {% else %}
+                <div class="col-1"><a href="{{ path('app_login') }}" class="nav-link">Connexion</a></div>
+                <div class="col-1"><a href="{{ path('app_register') }}" class="nav-link">Inscription</a></div>
+            {% endif %}
         </div>
-    </nav>
+    </div>
+</nav>

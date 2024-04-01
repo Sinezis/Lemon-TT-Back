@@ -4,38 +4,35 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Register</h1>
+	<div class="text-center mt-4 mb-4">
+		<h1 style="font-weight: bold; color: #fd9c0d;">Créer un compte</h1>
+	</div>
 
-{{ form_errors(registrationForm) }}
+	{{ form_errors(registrationForm) }}
+	{{ form_start(registrationForm) }}
+	<div class="row">
+		{% set columns = 2 %}
+		{% set colSize = 12 / columns %}
 
-			{{ form_start(registrationForm) }}
-			<div class="row">
-				{% set columns = 2 %}
-				{% set colSize = 12 / columns %}
-
-				<div class="col-md-{{ colSize }} text-md-center col-form register-col">
-					{{ form_label(registrationForm.firstName, 'Prénom') }}
-					{{ form_widget(registrationForm.firstName) }}
-				</div>
-				<div class="col-md-{{ colSize }} text-md-center col-form register-col">
-					{{ form_label(registrationForm.lastName, 'Nom') }}
-					{{ form_widget(registrationForm.lastName) }}
-				</div>
-				<div class="col-md-{{ colSize }}  text-md-center col-form register-col">
-					{{ form_label(registrationForm.email, 'Email') }}
-					{{ form_widget(registrationForm.email) }}
-				</div>
-				<div class="col-md-{{ colSize }} text-md-center col-form register-col">
-					{{ form_label(registrationForm.plainPassword, 'Mot de passe') }}
-					{{ form_widget(registrationForm.plainPassword) }}
-				</div>
-			</div>
-			<div class="text-center agreeTerms">
-				{{ form_widget(registrationForm.agreeTerms) }}
-				{{ form_label(registrationForm.agreeTerms, 'J\'accepte des conditions d\'utilisation du site') }}
-			</div>
-			<div class="text-center">
-				<button type="submit" class="btn btn-lg btn-primary" style="margin-top:2rem">Créer le compte</button>
-			</div>
+		<div class="col-md-{{ colSize }} text-md-center col-form register-col">
+			{{ form_widget(registrationForm.firstName) }}
+		</div>
+		<div class="col-md-{{ colSize }} text-md-center col-form register-col">
+			{{ form_widget(registrationForm.lastName) }}
+		</div>
+		<div class="col-md-{{ colSize }}  text-md-center col-form register-col mt-4">
+			{{ form_widget(registrationForm.email) }}
+		</div>
+		<div class="col-md-{{ colSize }} text-md-center col-form register-col mt-4">
+			{{ form_widget(registrationForm.plainPassword) }}
+		</div>
+	</div>
+	<div class="text-center mt-5 mb-4">
+		{{ form_widget(registrationForm.agreeTerms) }}
+		{{ form_label(registrationForm.agreeTerms, 'J\'accepte des conditions d\'utilisation du site') }}
+	</div>
+	<div class="text-center">
+		<button type="submit" class="btn btn-lg btn-primary" style="margin-top:2rem">Créer le compte</button>
+	</div>
 	{{ form_end(registrationForm) }}
 {% endblock %}
