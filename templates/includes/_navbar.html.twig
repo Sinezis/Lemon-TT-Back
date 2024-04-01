@@ -12,7 +12,18 @@
                         <a class="nav-link" href="{{ path('app_home') }}">Page d'accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('my_list') }}">Mes événements</a>
+                        {% if is_granted('ROLE_USER') %}
+                            <a class="nav-link" href="{{ path('my_list') }}">Mes événements</a>
+                        {% else %}
+                            <a class="nav-link" disabled href="#">Mes événements</a>
+                        {% endif %}
+                    </li>
+                    <li class="nav-item">
+                        {% if is_granted('ROLE_USER') %}
+                            <a class="nav-link" href="{{ path('event_new') }}">Créer un événement</a>
+                        {% else %}
+                            <a class="nav-link" disabled href="#">Créer un événement</a>
+                        {% endif %}
                     </li>
                 </ul>
 				{% if is_granted('ROLE_USER') %}

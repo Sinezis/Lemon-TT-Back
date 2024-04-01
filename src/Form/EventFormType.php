@@ -20,26 +20,37 @@ class EventFormType extends AbstractType
                     new NotBlank([
                         'message' => 'Il est nécessaire que le titre de l\'événement ne soit pas vide.'
                     ])
-                ]
+                    ],
+                    'attr' => [
+                        'placeholder' => 'Titre de l\'événement'
+                    ]
             ])
             ->add('description', TextType::class, [
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Il est nécessaire que la description de l\'événement ne soit pas vide.'
                     ])
+                    ],
+                'attr' => [
+                    'placeholder' => 'Description'
                 ]
             ])
             ->add('startDate', DateTimeType::class, [
 
             ])
             ->add('endDate', DateTimeType::class, [
-                
+                'attr' => [
+                    'placeholder' => 'Date de fin'
+                ]  
             ])
             ->add('location', TextType::class, [
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Il est nécessaire que le lieu de l\'événement ne soit pas vide.'
                     ])
+                ],
+                'attr' => [
+                    'placeholder' => 'Localisation'
                 ]
             ])
         ;
