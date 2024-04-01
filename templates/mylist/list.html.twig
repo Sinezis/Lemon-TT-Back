@@ -14,19 +14,19 @@
 
               <div class="card-body text-secondary">
                 <p class="card-text offer-card-text">
-                  <i class="bi bi-file-person-fill"></i>
 				  à
                   {{ event.location }}
                 </p>
                 <p class="card-text offer-card-text">
-                  <i class="bi bi-currency-exchange"></i>
 				  du
                   {{ event.startDate|date('d/m/Y H:i') }}
                   au
                   {{ event.endDate|date('d/m/Y H:i') }}
                 </p>
               </div>
-
+			<a href="{{ path('attending_no', {id:event.id}) }}">
+				<button class="btn btn-lg btn-danger justify-content-center" style="margin-top:2rem">Se désinscrire</button>
+			</a>
             </div>
           </div>
         {% endfor %}

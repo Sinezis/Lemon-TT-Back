@@ -28,9 +28,12 @@ class HomeController extends AbstractController
         EventRepository $eventRepo,
     ): Response
     {
+        $user = $this->security->getUser();
         $events = $eventRepo->findUpcoming();
+        
         return $this->render('home/index.html.twig', [
-            'events' => $events
+            'events' => $events,
+            'user' => $user
         ]);
     }
 

@@ -26,7 +26,17 @@
                   {{ event.endDate|date('d/m/Y H:i') }}
                 </p>
               </div>
-
+              {% if user in event.attendees %}
+                <a href="{{ path('attending_no', {id:event.id}) }}">
+                  <button class="btn btn-lg btn-danger" style="margin-top:2rem">Se désinscrire</button>
+                </a>
+              {% else %}
+                <a href="{{ path('attending_yes', {id:event.id}) }}">
+                  <button class="btn btn-lg btn-primary" style="margin-top:2rem">S'inscrire</button>
+                </a>
+              {% endif %}
+            <!-- 
+             -->
             </div>
           </div>
         {% endfor %}
