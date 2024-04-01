@@ -10,6 +10,17 @@
 			<img src="https://media-mcetv.ouest-france.fr/wp-content/uploads/2018/10/Sant%C3%A9-faire-la-f%C3%AAte-augmente-votre-esp%C3%A9rance-de-vie-grande.jpg"/>
 		</div>
 		<p class="w-100 p-3 d-flex justify-content-center mt-4">Où sortir en Hauts-de-France ? Retrouvez tous nos événements : sportifs, festifs, culturels et gastronomiques. L’agenda est mis à jour régulièrement pour vous permettre de partager au mieux l’esprit de notre région.</p>
+		
+		<div class="container d-flex justify-content-center mb-5">
+			<form class="row">
+				<p>
+					<input type="date" name="startDate" />
+					<input type="date" name="endDate" />
+					<button type="submit" class="btn btn-primary">Filtrer</button>
+				</p>
+			</form>
+		</div>
+		
 		<div class="row row-cols-1 row-cols-md-3 mx-auto">
 		{% for event in events %}
 			<div class="col mb-4">

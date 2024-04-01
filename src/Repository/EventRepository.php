@@ -21,11 +21,27 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
-    public function findUpcoming()
+    public function findUpcoming(
+        ?string $startDate = null,
+        ?string $endDate = null
+    )
     {
-        return $this->createQueryBuilder('e')
+        $qb = $this->createQueryBuilder('e')
             ->andWhere('e.startDate > :now')
-            ->setParameter('now', new \DateTime())
+            ->setParameter('now', new \DateTime());
+
+        if ($startDate !== null) {
+            $start = \DateTime::createFromFormat('Y-m-d', $startDate);
+            $start->setTime(0, 0);
+            $end = \DateTime::createFromFormat('Y-m-d', $endDate);
+            $end->setTime(23, 59);
+
+            $qb->andWhere('e.startDate > :start')
+                ->andWhere('e.startDate < :end')
+                ->setParameter('start', $start)
+                ->setParameter('end', $end);
+        }
+        return $qb
             ->orderBy('e.startDate', 'ASC')
             ->getQuery()
             ->getResult()

@@ -29,7 +29,16 @@ class HomeController extends AbstractController
     ): Response
     {
         $user = $this->security->getUser();
-        $events = $eventRepo->findUpcoming();
+
+        if (isset($_GET['startDate']) && isset($_GET['endDate'])){
+            if (($_GET['startDate'] !== "") && ($_GET['endDate'] !== "")) {
+                $events = $eventRepo->findUpcoming($_GET['startDate'], $_GET['endDate']);
+            } else {
+                $events = $eventRepo->findUpcoming();
+            }
+        } else {
+            $events = $eventRepo->findUpcoming();
+        }
         
         return $this->render('home/index.html.twig', [
             'events' => $events,
