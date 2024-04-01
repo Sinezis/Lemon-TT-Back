@@ -21,7 +21,7 @@ class HomeController extends AbstractController
         $this->security = $security;
     }
 
-    #[Route(path: '/home', name: 'app_home')]
+    #[Route(path: '/', name: 'app_home')]
     public function home(
         Request $request,
         EntityManagerInterface $entityManager,
@@ -40,6 +40,10 @@ class HomeController extends AbstractController
         MyListService $service,
     ): Response
     {
+        if (!($this->security->isGranted('ROLE_USER'))) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $user = $this->security->getUser();
         $eventsCreated = $service->getUserEvents($user);
         $eventsAttending = $user->getAttending();
