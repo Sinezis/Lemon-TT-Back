@@ -5,8 +5,34 @@
 
 {% block body %}
 	<h1>Mise à jour d'un événement</h1>
-	{{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button class="btn">{{ button_label|default('Sauvegarder') }}</button>
-    {{ form_end(form) }}
+{{ form_start(form) }}
+			<div class="row">
+				{% set columns = 2 %}
+				{% set colSize = 12 / columns %}
+
+				<div class="col-md-{{ colSize }} text-md-center col-form register-col">
+					{{ form_label(form.title, 'Titre') }}
+					{{ form_widget(form.title) }}
+				</div>
+                	<div class="col-md-{{ colSize }}  text-md-center col-form register-col">
+					{{ form_label(form.startDate, 'Date de début') }}
+					{{ form_widget(form.startDate) }}
+				</div>
+				<div class="col-md-{{ colSize }} text-md-center col-form register-col">
+					{{ form_label(form.description, 'Description') }}
+					{{ form_widget(form.description) }}
+				</div>
+				<div class="col-md-{{ colSize }} text-md-center col-form register-col">
+					{{ form_label(form.endDate, 'Date de fin') }}
+					{{ form_widget(form.endDate) }}
+				</div>
+                <div class="col-md-{{ colSize }} text-md-center col-form register-col">
+                    {{ form_label(form.location, 'Localisation') }}
+                    {{ form_widget(form.location) }}
+                </div>
+			</div>
+			<div class="text-center">
+				<button type="submit" class="btn btn-lg btn-primary" style="margin-top:2rem">Sauvegarder l'événement</button>
+			</div>
+	{{ form_end(form) }}
 {% endblock %}
