@@ -4,7 +4,9 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Mise à jour d'un événement</h1>
+	<div class="text-center mt-4 mb-4">
+			<h1 style="font-weight: bold; color: #fd9c0d;">Mise à jour d'un événement</h1>
+		</div>
 	{% if error is not null %}
 		<div class="alert alert-danger text-center" role="alert">
 			{{error}}
@@ -16,27 +18,24 @@
 			{% set colSize = 12 / columns %}
 
 			<div class="col-md-{{ colSize }} text-md-center col-form register-col">
-				{{ form_label(form.title, 'Titre') }}
 				{{ form_widget(form.title) }}
 			</div>
 				<div class="col-md-{{ colSize }}  text-md-center col-form register-col">
 				{{ form_label(form.startDate, 'Date de début') }}
 				{{ form_widget(form.startDate) }}
 			</div>
-			<div class="col-md-{{ colSize }} text-md-center col-form register-col">
-				{{ form_label(form.description, 'Description') }}
+			<div class="col-md-{{ colSize }} text-md-center col-form register-col mt-4">
 				{{ form_widget(form.description) }}
 			</div>
-			<div class="col-md-{{ colSize }} text-md-center col-form register-col">
+			<div class="col-md-{{ colSize }} text-md-center col-form register-col mt-4">
 				{{ form_label(form.endDate, 'Date de fin') }}
 				{{ form_widget(form.endDate) }}
 			</div>
-			<div class="col-md-{{ colSize }} text-md-center col-form register-col">
-				{{ form_label(form.location, 'Localisation') }}
+			<div class="col-md-{{ colSize }} text-md-center col-form register-col mt-4 mb-5">
 				{{ form_widget(form.location) }}
 			</div>
 		</div>
-		<div class="text-center">
+		<div class="text-center mt-5 mb-5">
 			<button type="submit" class="btn btn-lg btn-primary w-100 p-3" style="margin-top:2rem">Sauvegarder l'événement</button>
 		</div>
 	{{ form_end(form) }}

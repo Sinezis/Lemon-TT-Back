@@ -4,12 +4,12 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Accueil</h1>
 	<div class="container mt-4">
+		<h1 class="mb-4" style="font-weight: bold; color: #fd9c0d;">Accueil</h1>
 		<div class="d-flex justify-content-center">
 			<img src="https://media-mcetv.ouest-france.fr/wp-content/uploads/2018/10/Sant%C3%A9-faire-la-f%C3%AAte-augmente-votre-esp%C3%A9rance-de-vie-grande.jpg"/>
 		</div>
-		<p class="w-100 p-3 d-flex justify-content-center">Où sortir en Hauts-de-France ? Retrouvez tous nos événements : sportifs, festifs, culturels et gastronomiques. L’agenda est mis à jour régulièrement pour vous permettre de partager au mieux l’esprit de notre région.</p>
+		<p class="w-100 p-3 d-flex justify-content-center mt-4">Où sortir en Hauts-de-France ? Retrouvez tous nos événements : sportifs, festifs, culturels et gastronomiques. L’agenda est mis à jour régulièrement pour vous permettre de partager au mieux l’esprit de notre région.</p>
 		<div class="row row-cols-1 row-cols-md-3 mx-auto">
 		{% for event in events %}
 			<div class="col mb-4">
@@ -18,12 +18,10 @@
 
 				<div class="card-body text-secondary">
 					<p class="card-text offer-card-text">
-						<i class="bi bi-file-person-fill"></i>
 						à
 						{{ event.location }}
 					</p>
 					<p class="card-text offer-card-text">
-						<i class="bi bi-currency-exchange"></i>
 						du
 						{{ event.startDate|date('d/m/Y H:i') }}
 						au
