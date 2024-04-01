@@ -36,18 +36,24 @@ class EventController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        $error = null;
         $event = new Event();
         $form = $this->createForm(EventFormType::class, $event);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->eventManager->create($form, $this->security->getUser());
+            $check = $this->eventManager->create($form, $this->security->getUser());
 
-            return $this->redirectToRoute('app_home');
+            if ($check['status'] != 'ok') {
+                $error = $check['message'];
+            } else {
+                return $this->redirectToRoute('app_home');
+            }
         }
         
         return $this->render('event/create.html.twig', [
             'form' => $form,
+            'error' => $error
         ]);
     }
 
@@ -61,17 +67,23 @@ class EventController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
+        $error = null;
         $form = $this->createForm(EventFormType::class, $event);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->eventManager->update($form, $this->security->getUser(), $event);
+            $check = $this->eventManager->update($form, $this->security->getUser(), $event);
 
-            return $this->redirectToRoute('app_home');
+            if ($check['status'] != 'ok') {
+                $error = $check['message'];
+            } else {
+                return $this->redirectToRoute('app_home');
+            }
         }
 
         return $this->render('event/update.html.twig', [
             'form' => $form,
+            'error' => $error
         ]);
     }
 

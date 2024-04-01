@@ -20,8 +20,26 @@ class EventService {
         FormInterface $form,
         User $user
     ) {
+        $return = [
+            'status' => 'ok',
+            'message' => ''
+        ];
+
         $event = new Event();
         $event = $form->getData();
+
+        $now = new \DateTime();
+
+        if ($event->getStartDate() < $event) {
+            $return['status'] = 'ko';
+            $return['message'] = "La date de départ ne peut pas être antérieure à la date actuelle.";
+            return $return;
+        }
+        if ($event->getEndDate() > $event->getStartDate()) {
+            $return['status'] = 'ko';
+            $return['message'] = "La date de fin ne peut pas être antérieure à la date de départ.";
+            return $return;
+        }
 
         $event->setCreatedAt(new \DateTimeImmutable());
         $event->setCreatedBy($user);
@@ -34,10 +52,12 @@ class EventService {
             $this->entityManager->persist($event);
             $this->entityManager->flush();
         } catch (Exception $e) {
-            throw new Exception("L'événement n'a pas pu être sauvegardé. Veuillez réessayer.");
+            $return['status'] = 'ko';
+            $return['message'] = "L'événement n'a pas pu être sauvegardé. Veuillez réessayer.";
+            return $return;
         }
 
-        return true;
+        return $return;
     }
 
     public function update(
@@ -46,6 +66,15 @@ class EventService {
         Event $event
     ) {
         $event = $form->getData();
+
+        $now = new \DateTime();
+
+        if ($event->getStartDate() < $event) {
+            throw new \Exception("La date de départ ne peut pas être antérieure à la date actuelle");
+        }
+        if ($event->getEndDate() > $event->getStartDate()) {
+            throw new \Exception("La date de fin ne peut pas être antérieure à la date de départ");
+        }
 
         try {
             $this->entityManager->persist($event);
