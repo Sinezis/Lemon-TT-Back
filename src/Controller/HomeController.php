@@ -30,7 +30,7 @@ class HomeController extends AbstractController
     {
         $events = $eventRepo->findUpcoming();
         return $this->render('home/index.html.twig', [
-            'events'=>$events
+            'events' => $events
         ]);
     }
 

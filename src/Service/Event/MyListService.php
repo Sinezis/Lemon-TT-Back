@@ -41,17 +41,4 @@ class MyListService {
 
         return true;
     }
-
-    public function delete(
-        Event $event
-    ) {
-        try {
-            $this->entityManager->remove($event);
-            $this->entityManager->flush();
-        } catch (Exception $e) {
-            throw new Exception("L'événement n'a pas pu être supprimé. Veuillez réessayer.");
-        }
-
-        return true;
-    }
 }
