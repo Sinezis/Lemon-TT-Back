@@ -25,8 +25,12 @@ class EventService {
 
         $event->setCreatedAt(new \DateTimeImmutable());
         $event->setCreatedBy($user);
+        $event->addAttendee($user);
+
+        $user->addAttending($event);
 
         try {
+            $this->entityManager->persist($user);
             $this->entityManager->persist($event);
             $this->entityManager->flush();
         } catch (Exception $e) {
