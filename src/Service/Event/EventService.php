@@ -30,12 +30,12 @@ class EventService {
 
         $now = new \DateTime();
 
-        if ($event->getStartDate() < $event) {
+        if ($event->getStartDate() < $now) {
             $return['status'] = 'ko';
             $return['message'] = "La date de départ ne peut pas être antérieure à la date actuelle.";
             return $return;
         }
-        if ($event->getEndDate() > $event->getStartDate()) {
+        if ($event->getEndDate() < $event->getStartDate()) {
             $return['status'] = 'ko';
             $return['message'] = "La date de fin ne peut pas être antérieure à la date de départ.";
             return $return;
