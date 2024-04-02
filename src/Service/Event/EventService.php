@@ -30,23 +30,27 @@ class EventService {
 
         $now = new \DateTime();
 
+        // Throw error if start date is before now
         if ($event->getStartDate() < $now) {
             $return['status'] = 'ko';
             $return['message'] = "La date de départ ne peut pas être antérieure à la date actuelle.";
             return $return;
         }
+        // Throw error if end date is before start date
         if ($event->getEndDate() < $event->getStartDate()) {
             $return['status'] = 'ko';
             $return['message'] = "La date de fin ne peut pas être antérieure à la date de départ.";
             return $return;
         }
 
+        // Set the creator and the creation time 
         $event->setCreatedAt(new \DateTimeImmutable());
         $event->setCreatedBy($user);
         $event->addAttendee($user);
 
         $user->addAttending($event);
 
+        // Throw error if the event isn't saved in the DB
         try {
             $this->entityManager->persist($user);
             $this->entityManager->persist($event);
@@ -69,18 +73,22 @@ class EventService {
 
         $now = new \DateTime();
 
-        if ($event->getStartDate() < $event) {
+        // Throw exception if start date is before now
+        if ($event->getStartDate() < $now) {
             throw new \Exception("La date de départ ne peut pas être antérieure à la date actuelle");
         }
+
+        // Throw exception if end date is before start date
         if ($event->getEndDate() > $event->getStartDate()) {
             throw new \Exception("La date de fin ne peut pas être antérieure à la date de départ");
         }
 
+        // Throw exception if the event isn't saved in the DB
         try {
             $this->entityManager->persist($event);
             $this->entityManager->flush();
         } catch (\Exception $e) {
-            throw new E\xception("L'événement n'a pas pu être sauvegardé. Veuillez réessayer.");
+            throw new \Exception("L'événement n'a pas pu être sauvegardé. Veuillez réessayer.");
         }
 
         return true;

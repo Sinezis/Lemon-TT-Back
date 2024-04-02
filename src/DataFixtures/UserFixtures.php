@@ -22,6 +22,7 @@ class UserFixtures extends Fixture
             $candidat->setFirstname($faker->firstName());
             $candidat->setLastname($faker->lastName());
             $manager->persist($candidat);
+            // Allows usage of user object in event fixture
             $this->addReference('user_' . $i, $candidat);
         }
         $manager->flush();

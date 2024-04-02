@@ -32,6 +32,7 @@ class EventController extends AbstractController
         Request $request,
     ): Response
     {
+        // You have to be connected to access this page or you'll be redirected to the homepage
         if (!($this->security->isGranted('ROLE_USER'))) {
             return $this->redirectToRoute('app_login');
         }
@@ -40,10 +41,12 @@ class EventController extends AbstractController
         $event = new Event();
         $form = $this->createForm(EventFormType::class, $event);
 
+        // Form verification
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $check = $this->eventManager->create($form, $this->security->getUser());
 
+            // Display error message in front
             if ($check['status'] != 'ok') {
                 $error = $check['message'];
             } else {
@@ -63,6 +66,7 @@ class EventController extends AbstractController
         Event $event,
     ): Response
     {
+        // Only creator can update the event
         if ($event->getCreatedBy() != $this->security->getUser()) {
             return $this->redirectToRoute('app_home');
         }
@@ -70,6 +74,7 @@ class EventController extends AbstractController
         $error = null;
         $form = $this->createForm(EventFormType::class, $event);
 
+        // Form verification
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $check = $this->eventManager->update($form, $this->security->getUser(), $event);
@@ -94,6 +99,7 @@ class EventController extends AbstractController
         Event $event,
     ): Response
     {
+        // Only the creator can delete an event
         if ($event->getCreatedBy() != $this->security->getUser()) {
             return $this->redirectToRoute('app_home');
         }

@@ -30,13 +30,16 @@ class HomeController extends AbstractController
     {
         $user = $this->security->getUser();
 
+        //Filter Result (both dates have to be selected in front)
         if (isset($_GET['startDate']) && isset($_GET['endDate'])){
             if (($_GET['startDate'] !== "") && ($_GET['endDate'] !== "")) {
                 $events = $eventRepo->findUpcoming($_GET['startDate'], $_GET['endDate']);
             } else {
+                // Remove filter if only one date is set
                 $events = $eventRepo->findUpcoming();
             }
         } else {
+            // Do not filter if no date is set
             $events = $eventRepo->findUpcoming();
         }
         
@@ -52,6 +55,7 @@ class HomeController extends AbstractController
         MyListService $service,
     ): Response
     {
+        // Redirect to login page if not logged in
         if (!($this->security->isGranted('ROLE_USER'))) {
             return $this->redirectToRoute('app_login');
         }

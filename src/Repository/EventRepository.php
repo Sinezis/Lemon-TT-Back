@@ -30,6 +30,8 @@ class EventRepository extends ServiceEntityRepository
             ->andWhere('e.startDate > :now')
             ->setParameter('now', new \DateTime());
 
+        // Dilters results by date in DQL
+        // Startdate is set at 00;00, Enddate is set at 23:59
         if ($startDate !== null) {
             $start = \DateTime::createFromFormat('Y-m-d', $startDate);
             $start->setTime(0, 0);
@@ -41,6 +43,7 @@ class EventRepository extends ServiceEntityRepository
                 ->setParameter('start', $start)
                 ->setParameter('end', $end);
         }
+        // Order by ascending start date
         return $qb
             ->orderBy('e.startDate', 'ASC')
             ->getQuery()
