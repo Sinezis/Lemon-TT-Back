@@ -77,13 +77,14 @@ class EventController extends AbstractController
             if ($check['status'] != 'ok') {
                 $error = $check['message'];
             } else {
-                return $this->redirectToRoute('app_home');
+                return $this->redirectToRoute('my_list');
             }
         }
 
         return $this->render('event/update.html.twig', [
             'form' => $form,
-            'error' => $error
+            'error' => $error,
+            'event' => $event
         ]);
     }
 
@@ -99,6 +100,6 @@ class EventController extends AbstractController
         
         $this->eventManager->delete($event);
 
-        return $this->redirectToRoute('app_home');
+        return $this->redirectToRoute('my_list');
     }
 }

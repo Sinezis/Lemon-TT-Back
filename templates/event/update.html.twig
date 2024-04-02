@@ -36,8 +36,12 @@
 				{{ form_widget(form.location) }}
 			</div>
 		</div>
-		<div class="container text-center mb-5">
-			<button type="submit" class="btn btn-lg btn-primary w-100 p-3" style="margin-top:2rem">Sauvegarder l'événement</button>
+		<div class="container text-center mb-1">
+			<button type="submit" class="btn btn-lg btn-primary w-50 p-3" style="margin-top:2rem">Sauvegarder l'événement</button>
 		</div>
 	{{ form_end(form) }}
+	<div class="container text-center mb-5">
+		<a href="{{ path("event_delete", {id:event.id} ) }}"><button class="btn btn-lg btn-danger w-50 p-3" style="margin-top:2rem">Supprimer l'événement</button></a>
+	</div>
+	
 {% endblock %}
