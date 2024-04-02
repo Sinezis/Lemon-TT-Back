@@ -21,8 +21,8 @@ class EventFixtures extends Fixture implements DependentFixtureInterface
             $event->setLocation($faker->city());
             $event->setCreatedBy($this->getReference('user_' . rand(0, 4)));
             $event->setCreatedAt(new \DateTimeImmutable());
-            $event->setStartDate($faker->dateTimeInInterval('+1 week', '+3 days'));
-            $event->setEndDate($faker->dateTimeInInterval('+4 days', '+30 days'));
+            $event->setStartDate($faker->dateTimeInInterval('+3 days', '+1 week'));
+            $event->setEndDate($faker->dateTimeInInterval('+8 days', '+30 days'));
             $manager->persist($event);
         }
         $manager->flush();
