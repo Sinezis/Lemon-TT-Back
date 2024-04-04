@@ -69,18 +69,27 @@ class EventService {
         User $user,
         Event $event
     ) {
+        $return = [
+            'status' => 'ok',
+            'message' => ''
+        ];
+
         $event = $form->getData();
 
         $now = new \DateTime();
 
         // Throw exception if start date is before now
-        if ($event->getStartDate() < $now) {
-            throw new \Exception("La date de départ ne peut pas être antérieure à la date actuelle");
-        }
+         if ($event->getStartDate() < $now) {
+            $return['status'] = 'ko';
+            $return['message'] = "La date de départ ne peut pas être antérieure à la date actuelle.";
+            return $return;
+         }
 
         // Throw exception if end date is before start date
-        if ($event->getEndDate() > $event->getStartDate()) {
-            throw new \Exception("La date de fin ne peut pas être antérieure à la date de départ");
+        if ($event->getEndDate() < $event->getStartDate()) {
+            $return['status'] = 'ko';
+            $return['message'] = "La date de fin ne peut pas être antérieure à la date de départ.";
+            return $return;
         }
 
         // Throw exception if the event isn't saved in the DB
@@ -91,8 +100,9 @@ class EventService {
             throw new \Exception("L'événement n'a pas pu être sauvegardé. Veuillez réessayer.");
         }
 
-        return true;
+        return $return;
     }
+
 
     public function delete(
         Event $event
