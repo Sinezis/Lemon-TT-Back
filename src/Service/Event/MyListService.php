@@ -30,13 +30,20 @@ class MyListService {
         User $user,
         Event $event
     ) {
+        $return = [
+            'status' => 'ok',
+            'message' => ''
+        ];
+
         $event = $form->getData();
 
         try {
             $this->entityManager->persist($event);
             $this->entityManager->flush();
-        } catch (Exception $e) {
-            throw new Exception("L'événement n'a pas pu être sauvegardé. Veuillez réessayer.");
+        } catch (\Exception $e) {
+            $return['status'] = 'ko';
+            $return['message'] = "L'événement n'a pas pu être sauvegardé, veuillez réessayer.";
+            return $return;
         }
 
         return true;

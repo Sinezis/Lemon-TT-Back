@@ -99,12 +99,18 @@ class EventController extends AbstractController
         Event $event,
     ): Response
     {
+        $error = null;
+
         // Only the creator can delete an event
         if ($event->getCreatedBy() != $this->security->getUser()) {
             return $this->redirectToRoute('app_home');
         }
         
-        $this->eventManager->delete($event);
+        $check = $this->eventManager->delete($event);
+
+        if ($check['status'] != 'ok') {
+            $this->addFlash('error', $check['message']);
+        }
 
         return $this->redirectToRoute('my_list');
     }

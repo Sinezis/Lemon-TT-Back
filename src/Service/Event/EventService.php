@@ -55,7 +55,7 @@ class EventService {
             $this->entityManager->persist($user);
             $this->entityManager->persist($event);
             $this->entityManager->flush();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $return['status'] = 'ko';
             $return['message'] = "L'événement n'a pas pu être sauvegardé. Veuillez réessayer.";
             return $return;
@@ -97,7 +97,9 @@ class EventService {
             $this->entityManager->persist($event);
             $this->entityManager->flush();
         } catch (\Exception $e) {
-            throw new \Exception("L'événement n'a pas pu être sauvegardé. Veuillez réessayer.");
+            $return['status'] = 'ko';
+            $return['message'] = "L'événement n'a pas pu être sauvegardé, veuillez réessayer.";
+            return $return;
         }
 
         return $return;
@@ -107,11 +109,19 @@ class EventService {
     public function delete(
         Event $event
     ) {
+        $return = [
+            'status' => 'ok',
+            'message' => ''
+        ];
+
+        
         try {
             $this->entityManager->remove($event);
             $this->entityManager->flush();
         } catch (\Exception $e) {
-            throw new \Exception("L'événement n'a pas pu être supprimé. Veuillez réessayer.");
+            $return['status'] = 'ko';
+            $return['message'] = "L'événement n'a pas pu être supprimé, veuillez réessayer.";
+            return $return;
         }
 
         return true;

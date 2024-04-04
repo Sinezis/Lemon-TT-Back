@@ -8,6 +8,15 @@
 		<img class="container mb-3" src="https://png.pngtree.com/thumb_back/fw800/back_our/20190625/ourmid/pngtree-youth-may-fourth-youth-festival-poster-banner-image_260821.jpg"/>
 		<h1 class="mt-5" style="font-weight: bold; color: #fd9c0d;">Mes événements</h1>
 	</div>
+
+	<div class="text-center">
+		{% for message in app.flashes('error') %}
+            <div class="alert alert-error">
+                {{ message }}
+            </div>
+        {% endfor %}
+	</div>
+
 	<div class="container mt-4">
 		<div class="row row-cols-1 row-cols-md-3 mx-auto">
 		{% for event in eventsAttending %}
