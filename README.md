@@ -6,11 +6,11 @@ Ce fichier README va détailler les choix que j'ai faits.
 
 ## Installation
 - Cloner le repo github
+- Copier le fichier *.env*, renommer la copie en *.env.local* et le paramétrer
 - Lancer la commande `composer install` 
   - Installe les packages back
 - Lancer la commande `yarn install`
   - Installe les packages front
-- Copier le fichier *.env*, renommer la copie en *.env.local* et le paramétrer
 - Lancer la commande `symfony console d:d:c`
   - Doctrine Dabase Create : Crée la base de données avec les informations données dans le fichier *.env.local*
 - Lancer la commande `symfony console d:m:m`
