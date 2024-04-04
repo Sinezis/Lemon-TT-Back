@@ -6,7 +6,7 @@ Ce fichier README va détailler les choix que j'ai faits.
 
 ## Installation
 - Cloner le repo github
-- Copier le fichier *.env*, renommer la copie en *.env.local* et le paramétrer
+- Copier le fichier *.env*, renommer la copie en *.env.local* et le paramétrer (modifier le APP_ENV de prod à dev dans le ".env.local")
 - Lancer la commande `composer install` 
   - Installe les packages back
 - Lancer la commande `yarn install`
